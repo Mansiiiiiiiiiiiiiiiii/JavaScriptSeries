@@ -1,3 +1,5 @@
+// Fixed the `id` mismatch for the computer score and corrected the case sensitivity for choices. Also corrected the logic to match the choices used in the HTML
+
 let userScore = 0;
 let compScore = 0;
 
@@ -5,11 +7,11 @@ const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
 
 const userScorePara = document.querySelector("#user-score");
-const compScorePara = document.querySelector("#comp-score");
+const compScorePara = document.querySelector("#Comp-score");
 
 const genCompChoice = () => {
-  const options = ["rock", "paper", "scissors"];
-  const randIdx = Math.floor(Math.random() * 3);
+  const options = ["Rock", "Paper", "Scissors"];
+  const randIdx = Math.floor(Math.random() * options.length);
   return options[randIdx];
 };
 
@@ -33,23 +35,18 @@ const showWinner = (userWin, userChoice, compChoice) => {
 };
 
 const playGame = (userChoice) => {
-  //Generate computer choice
   const compChoice = genCompChoice();
 
   if (userChoice === compChoice) {
-    //Draw Game
     drawGame();
   } else {
-    let userWin = true;
-    if (userChoice === "rock") {
-      //scissors, paper
-      userWin = compChoice === "paper" ? false : true;
-    } else if (userChoice === "paper") {
-      //rock, scissors
-      userWin = compChoice === "scissors" ? false : true;
+    let userWin = false;
+    if (userChoice === "Rock") {
+      userWin = compChoice === "Scissors";
+    } else if (userChoice === "Paper") {
+      userWin = compChoice === "Rock";
     } else {
-      //rock, paper
-      userWin = compChoice === "rock" ? false : true;
+      userWin = compChoice === "Paper";
     }
     showWinner(userWin, userChoice, compChoice);
   }
